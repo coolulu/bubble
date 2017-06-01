@@ -2,7 +2,7 @@
 
 # LOG
 # 模块名
-log_module = 'BData'
+log_module = 'BWall'
 
 # 日志所在路径
 log_path = './log'
@@ -28,6 +28,8 @@ mq_port = 5672
 
 # mq虚拟地址
 mq_virtual_host = '/'
+
+
 
 
 

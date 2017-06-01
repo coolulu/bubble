@@ -15,20 +15,29 @@ class ClientPool:
         with self._sem:
             if sockfd not in self._clients:
                 self._clients.add(sockfd)
+                return True
+
+        return False
 
     def close_client(self, sockfd):
         sockfd.close()
         with self._sem:
             if sockfd in self._clients:
                 self._clients.remove(sockfd)
+                return True
+
+        return False
 
     def send(self, sockfd, msg):
         with self._sem:
             if sockfd in self._clients:
                 try:
                     sockfd.sendall(msg)
+                    return True
                 except Exception as e:
                     self._close_client(sockfd)
+
+        return False
 
     def _close_client(self, sockfd):
         sockfd.close()

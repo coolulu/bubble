@@ -2,7 +2,7 @@
 
 # LOG
 # 模块名
-log_module = 'BWall'
+log_module = 'BSession'
 
 # 日志所在路径
 log_path = './log'
@@ -29,7 +29,9 @@ mq_port = 5672
 # mq虚拟地址
 mq_virtual_host = '/'
 
-
+# PROC
+# 工作进程数量
+proc_work_num = 4
 
 
 

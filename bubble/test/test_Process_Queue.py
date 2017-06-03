@@ -19,34 +19,31 @@ def read(q):
         i += 1
         print i
 
+class Recver:
+    def recv(self, q):
+        print 'sss'
+        pass
+
 if __name__ == '__main__':
     # 父进程创建Queue，并传给各个子进程：
     q = Queue()
 
-    pw = Process(target=write, args=(q,))
-    pw1 = Process(target=write, args=(q,))
-    pw2 = Process(target=write, args=(q,))
-    pw3 = Process(target=write, args=(q,))
-    pw4 = Process(target=write, args=(q,))
-    pw5 = Process(target=write, args=(q,))
-    pr = Process(target=read, args=(q,))
+    pw0 = Process(target=write, args=(q,))
+
+    r = Recver()
+    pw1 = Process(target=Recver.recv, args=(r, q))
+
+    pr = Process(target=read, args=(q, ))
     pr.start()
 
     # write(q)
-    pw.start()
+    pw0.start()
     pw1.start()
-    pw2.start()
-    pw3.start()
-    pw4.start()
-    pw5.start()
+
     write(q)
 
-    pw.join()
+    pw0.join()
     pw1.join()
-    pw2.join()
-    pw3.join()
-    pw4.join()
-    pw5.join()
 
     pr.join()
     # pr进程里是死循环，无法等待其结束，只能强行终止:

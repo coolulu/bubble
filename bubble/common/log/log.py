@@ -161,6 +161,8 @@ def logger(log_level, log_module, log_path, log_size):
     return g_logger
 
 
+log = None
+
 # def handler():
 #     global g_handler
 #     if not g_handler:

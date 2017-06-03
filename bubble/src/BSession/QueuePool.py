@@ -2,6 +2,8 @@
 
 import multiprocessing
 
+g_queue_pool = None
+
 class QueuePool:
     '''
     [0, work_num]   为工作进程队列
@@ -12,6 +14,7 @@ class QueuePool:
     def __init__(self, work_num):
         self._work_num = work_num
         self._queues = [multiprocessing.Queue()] * (self._work_num + 2)
+
 
     '''
     工作进程队列操作

@@ -25,7 +25,6 @@ def send(index):
 def main():
     work_queue = []
     for i in range(BSessionCfg.proc_work_num):
-        print i
         work_queue.append(multiprocessing.Queue())
     pass
 

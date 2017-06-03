@@ -4,7 +4,6 @@ import multiprocessing
 import time
 
 from bubble.config import BSessionCfg
-from bubble.common.mq import RabbitMQClient
 
 
 def heart(interval):

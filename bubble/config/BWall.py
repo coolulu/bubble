@@ -29,6 +29,9 @@ mq_port = 5672
 # mq虚拟地址
 mq_virtual_host = '/'
 
+# mq接收队列
+mq_recv_queue = log_module
+
 
 
 

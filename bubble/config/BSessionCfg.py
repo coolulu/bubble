@@ -29,9 +29,14 @@ mq_port = 5672
 # mq虚拟地址
 mq_virtual_host = '/'
 
+# mq接收队列
+mq_recv_queue = log_module
+
 # PROC
 # 工作进程数量
 proc_work_num = 4
 
+# 心跳间隔(秒)
+proc_heart_interval = 10
 
 

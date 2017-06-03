@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 
 import multiprocessing
+import os
 import signal
 
 from bubble.config import BSessionCfg
@@ -56,7 +57,7 @@ def main():
         proc.start()
 
     global g_opened
-    hearter = Hearter(g_opened, BSessionCfg.proc_heart_intervalr, g_queue_pool)
+    hearter = Hearter(os.getpid(), g_opened, BSessionCfg.proc_heart_intervalr, g_queue_pool)
     hearter.heart()
 
     proc_close(g_queue_pool, g_queue_pool)

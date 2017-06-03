@@ -1,11 +1,11 @@
 # -*- coding:utf-8 -*-
 
-import os
 import signal
 
 class Hearter:
 
-    def __init__(self, opened, heart_interval, queue_pool):
+    def __init__(self, pid, opened, heart_interval, queue_pool):
+        self._pid = pid
         self._opened = opened
         self._heart_interval = heart_interval
         self._queue_pool = queue_pool
@@ -25,7 +25,7 @@ class Hearter:
         #发送监控数据
 
         if True:
-            os.kill(os.getpid(), signal.SIGTERM)
+            os.kill(self._pid, signal.SIGTERM)
         pass
 
 

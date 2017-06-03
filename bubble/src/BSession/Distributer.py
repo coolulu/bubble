@@ -1,12 +1,13 @@
 # -*- coding:utf-8 -*-
 
-from QueuePool import g_queue_pool
+class Distributer:
 
-'''
-消息分发给队列
-'''
-def distributing(ch, method, properties, body):
-    g_queue_pool
+    def __init__(self, queue_pool):
+        self._queue_pool = queue_pool
 
-
-    pass
+    '''
+    消息分发给队列
+    '''
+    def distributing(self, body):
+        print self._queue_pool.get_send_size()
+        print body

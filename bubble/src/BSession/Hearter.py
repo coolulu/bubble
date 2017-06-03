@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 
+import os
 import signal
 
 class Hearter:
@@ -16,7 +17,7 @@ class Hearter:
             msg = 'heart'
             self._queue_pool.put_send_task(msg)
 
-            task = self._queue_pool.get_proc_task(msg, self._heart_interval)
+            task = self._queue_pool.get_proc_task(self._heart_interval)
             if task is not None:
                 self.hand(task)
 
@@ -25,6 +26,7 @@ class Hearter:
         #发送监控数据
 
         if True:
+            #防止Hearter不在主进程也能正确触发主线程的关闭
             os.kill(self._pid, signal.SIGTERM)
         pass
 

@@ -2,18 +2,17 @@
 
 import multiprocessing
 
-g_queue_pool = None
-
 class QueuePool:
     '''
     [0, work_num]   为工作进程队列
     [work_num]/[-2] 为程序控制队列
     [work_num]/[-1] 为发送队列
     '''
-
     def __init__(self, work_num):
         self._work_num = work_num
-        self._queues = [multiprocessing.Queue()] * (self._work_num + 2)
+        self._queues = []
+        for i in range(0, work_num + 2):
+            self._queues.append(multiprocessing.Queue())
 
 
     '''
@@ -36,6 +35,7 @@ class QueuePool:
     '''
     def put_send_task(self, task):
         self._queues[-1].put(task)
+        pass
 
     def get_send_task(self):
         return self._queues[-1].get()
@@ -64,4 +64,4 @@ def test():
 
     print ql.get_proc_task(5)
 
-test()
+# test()

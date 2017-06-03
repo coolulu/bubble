@@ -27,6 +27,7 @@ class Recver:
 if __name__ == '__main__':
     # 父进程创建Queue，并传给各个子进程：
     q = Queue()
+    q2 = Queue()
 
     pw0 = Process(target=write, args=(q,))
 

@@ -35,16 +35,16 @@ class RabbitMQClient:
     '''
     recv blocking
     '''
-    def recv(self):
+    def recv_msg(self):
         self._channel.start_consuming()
 
-    def send(self, queue_name, body):
+    def send_msg(self, queue_name, body):
         self._channel.basic_publish(exchange='', routing_key=queue_name, body=body)
 
-def callback_A(ch, method, properties, body):
+def cb_A(ch, method, properties, body):
     print 'A: ' + body
 
-def callback_B(ch, method, properties, body):
+def cb_B(ch, method, properties, body):
     print 'B: ' + body
 
 if __name__ == "__main__":
@@ -55,9 +55,9 @@ if __name__ == "__main__":
 
     c = RabbitMQClient('admin', 'admin123', '192.168.154.130', 5672, '/')
     c.connect()
-    c.declare(queue_A, callback_A)
-    c.declare(queue_B, callback_B)
-    c.send(queue_A, body_A)
-    c.send(queue_B, body_B)
-    c.recv()
+    c.declare(queue_A, cb_A)
+    c.declare(queue_B, cb_B)
+    c.send_msg(queue_A, body_A)
+    c.send_msg(queue_B, body_B)
+    c.recv_msg()
 

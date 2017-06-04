@@ -1,8 +1,17 @@
 # -*- coding:utf-8 -*-
 
+# 基本配置
+# 程序名
+base_name = 'BGate'
+
+#程序id
+base_id = 0
+
+base_ref = base_name + '_' + str(base_id)
+
 # LOG
 # 模块名
-log_module = 'BGate'
+log_module = base_ref
 
 # 日志所在路径
 log_path = './log'
@@ -30,7 +39,7 @@ mq_port = 5672
 mq_virtual_host = '/'
 
 # mq接收队列
-mq_recv_queue = log_module
+mq_recv_queue = base_ref
 
 
 

@@ -5,16 +5,18 @@ import os
 import signal
 from time import sleep
 
+def f1(sig, action):
+    print 'f1'
 
-def onsignal_term(sig, action):
-    print 'onsignal_term\n'
+def f2(sig, action):
+    print 'f2'
 
-
-# 这里是绑定信号处理函数，将SIGTERM绑定在函数onsignal_term上面
-signal.signal(signal.SIGTERM, onsignal_term)
+signal.signal(signal.SIGUSR1, f1) #BGATE 主进程统计 连接加1
+signal.signal(signal.SIGUSR2, f2) #BGATE 主进程统计 连接减1
 
 while 1:
     pid = os.getpid()
     print 'pid = ', pid
-    os.kill(pid, signal.SIGTERM)
+    os.kill(pid, signal.SIGUSR1)
+    os.kill(pid, signal.SIGUSR2)
     sleep(10)

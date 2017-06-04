@@ -37,9 +37,9 @@ def main():
         procList.append(multiprocessing.Process(target=Worker.working,
                                                 args=(Worker(index,queue_pool),)))
     procList.append(multiprocessing.Process(target=Sender.sending,
-                                            args=(Sender(queue_pool),)))
+                                            args=(Sender(queue_pool, BSessionCfg.mq_recv_queue),)))
     procList.append(multiprocessing.Process(target=Recver.recving,
-                                            args=(Recver(queue_pool),)))
+                                            args=(Recver(queue_pool, BSessionCfg.mq_recv_queue),)))
 
     for proc in procList:
         proc.start()

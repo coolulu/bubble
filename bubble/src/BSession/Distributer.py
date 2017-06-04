@@ -9,5 +9,4 @@ class Distributer:
     消息分发给队列
     '''
     def distributing(self, body):
-        print self._queue_pool.get_send_size()
-        print body
+        self._queue_pool.put_work_task(0, body)

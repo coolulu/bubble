@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 
+from Handle.HandleBase import HandleBase
 
 class Worker:
 
@@ -10,5 +11,11 @@ class Worker:
     def working(self):
         while True:
             msg = self._queue_pool.get_work_task(self._index)
-            self._queue_pool.put_send_task(msg)
+            if msg is None:
+                break
+            else:
+                h = HandleBase()
+                msg = h.handle(msg)
+                if msg is not None:
+                    self._queue_pool.put_send_task(msg)
 

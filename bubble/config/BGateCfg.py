@@ -41,5 +41,16 @@ mq_virtual_host = '/'
 # mq接收队列
 mq_recv_queue = base_ref
 
+# PROC
+proc_ip = '127.0.0.1'
+proc_port = 5000
+
+#cat /proc/sys/net/core/somaxconn
+proc_backlog = 128
+
+#工作进程数量
+proc_work_num = 1
+
+
 
 

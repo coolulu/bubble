@@ -46,6 +46,6 @@ mq_recv_queue = base_ref
 proc_work_num = 1
 
 # 心跳间隔(秒)
-proc_heart_interval = 20
+proc_heart_interval = 10
 
 

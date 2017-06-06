@@ -1,4 +1,5 @@
 from gevent.server import StreamServer
+from gevent import socket
 
 class server:
 
@@ -12,6 +13,8 @@ class server:
     def handle(self, socket, address):
         while True:
             print socket.recv(1024)
+            print socket.fileno()
+            print address
 
 
 s = server()

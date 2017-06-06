@@ -11,7 +11,7 @@ class ClientPool:
         self._clients = set()
         self._sem = gevent.lock.Semaphore()
 
-    def append_client(self, sockfd):
+    def append(self, sockfd):
         with self._sem:
             if sockfd not in self._clients:
                 self._clients.add(sockfd)
@@ -19,7 +19,7 @@ class ClientPool:
 
         return False
 
-    def close_client(self, sockfd):
+    def close(self, sockfd):
         sockfd.close()
         with self._sem:
             if sockfd in self._clients:
@@ -35,11 +35,11 @@ class ClientPool:
                     sockfd.sendall(msg)
                     return True
                 except Exception as e:
-                    self._close_client(sockfd)
+                    self._close(sockfd)
 
         return False
 
-    def _close_client(self, sockfd):
+    def _close(self, sockfd):
         sockfd.close()
         if sockfd in self._clients:
             self._clients.remove(sockfd)

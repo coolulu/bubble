@@ -46,7 +46,7 @@ mq_recv_queue = base_ref
 proc_work_num = 1
 
 # 心跳间隔(秒)
-proc_heart_interval = 10
+proc_heart_interval = 30
 
 #接收最大长度
 proc_recv_buffer_size = 1024

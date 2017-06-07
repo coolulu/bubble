@@ -74,23 +74,25 @@ def serve_forever():
         wg.join()
         p.join()
 
-#backlog：cat /proc/sys/net/core/somaxconn
-server = StreamServer(('127.0.0.1', 5000), handle, backlog=128)
-server.start()
-for i in range(1):
-    Process(target=serve_forever, args=tuple()).start()
 
-mq = RabbitMQClient.init_mq(BGateCfg.mq_user_name,
-                            BGateCfg.mq_password,
-                            BGateCfg.mq_host,
-                            BGateCfg.mq_port,
-                            BGateCfg.mq_virtual_host)
 
-mq.declare()
+def main_recv_msg_cb(ch, method, properties, body):
+    pass
 
+server = None
 
 def main():
-    pass
+    server = StreamServer(('127.0.0.1', 5000), handle, backlog=128)
+    server.start()
+    for i in range(1):
+        Process(target=serve_forever, args=tuple()).start()
+    mq = RabbitMQClient.init_mq(BGateCfg.mq_user_name,
+                                BGateCfg.mq_password,
+                                BGateCfg.mq_host,
+                                BGateCfg.mq_port,
+                                BGateCfg.mq_virtual_host)
+    mq.declare(BGateCfg.mq_recv_queue, main_recv_msg_cb)
+    mq.recv_msg()
 
 if __name__ in '__main__':
     main()

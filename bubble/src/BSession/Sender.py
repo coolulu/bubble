@@ -11,11 +11,11 @@ class Sender:
         self._loop_back_queue = loop_back_queue
 
     def sending(self):
-        mq = RabbitMQClient.init_mq(BSessionCfg.mq_user_name,
-                                    BSessionCfg.mq_password,
-                                    BSessionCfg.mq_host,
-                                    BSessionCfg.mq_port,
-                                    BSessionCfg.mq_virtual_host)
+        mq = RabbitMQClient.init_mq(BSessionCfg.MQ.user_name,
+                                    BSessionCfg.MQ.password,
+                                    BSessionCfg.MQ.host,
+                                    BSessionCfg.MQ.port,
+                                    BSessionCfg.MQ.virtual_host)
         while True:
             msg = self._queue_pool.get_send_task()
             queue_name = msg

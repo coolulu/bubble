@@ -28,24 +28,29 @@ def main():
     signal.signal(signal.SIGINT, signal_close)
     signal.signal(signal.SIGTERM, signal_close)
 
-    log = logger(BSessionCfg.log_level, BSessionCfg.log_module,
-                 BSessionCfg.log_path, BSessionCfg.log_maxsize)
-    queue_pool = QueuePool(BSessionCfg.proc_work_num)
+    log = logger(BSessionCfg.Log.level,
+                 BSessionCfg.Log.module,
+                 BSessionCfg.Log.path,
+                 BSessionCfg.Log.maxsize)
+    queue_pool = QueuePool(BSessionCfg.Proc.work_num)
 
     procList = []
-    for index in range(BSessionCfg.proc_work_num):
+    for index in range(BSessionCfg.Proc.work_num):
         procList.append(multiprocessing.Process(target=Worker.working,
-                                                args=(Worker(index,queue_pool),)))
+                                                args=(Worker(index, queue_pool),)))
     procList.append(multiprocessing.Process(target=Sender.sending,
-                                            args=(Sender(queue_pool, BSessionCfg.mq_recv_queue),)))
+                                            args=(Sender(queue_pool, BSessionCfg.MQ.recv_queue),)))
     procList.append(multiprocessing.Process(target=Recver.recving,
-                                            args=(Recver(queue_pool, BSessionCfg.mq_recv_queue),)))
+                                            args=(Recver(queue_pool, BSessionCfg.MQ.recv_queue),)))
 
     for proc in procList:
         proc.start()
 
     global g_opened
-    hearter = Hearter(os.getpid(), g_opened, BSessionCfg.proc_heart_interval, queue_pool)
+    hearter = Hearter(os.getpid(),
+                      g_opened,
+                      BSessionCfg.Proc.heart_interval,
+                      queue_pool)
     hearter.hearting()
 
     proc_close(queue_pool)

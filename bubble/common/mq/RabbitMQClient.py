@@ -47,10 +47,10 @@ class RabbitMQClient:
     def send_msg(self, queue_name, body):
         self._channel.basic_publish(exchange='', routing_key=queue_name, body=body)
 
-def cb_A(ch, method, properties, body):
+def a_cb(ch, method, properties, body):
     print 'A: ' + body
 
-def cb_B(ch, method, properties, body):
+def b_cb(ch, method, properties, body):
     print 'B: ' + body
 
 if __name__ == "__main__":
@@ -59,11 +59,11 @@ if __name__ == "__main__":
     body_A = 'AAAAAAAA'
     body_B = 'BBBBBBBB'
 
-    c = RabbitMQClient('admin', 'admin123', '192.168.154.130', 5672, '/')
-    c.connect()
-    c.declare(queue_A, cb_A)
-    c.declare(queue_B, cb_B)
-    c.send_msg(queue_A, body_A)
-    c.send_msg(queue_B, body_B)
-    c.recv_msg()
+    mq = RabbitMQClient('admin', 'admin123', '192.168.154.130', 5672, '/')
+    mq.connect()
+    mq.declare(queue_A, a_cb)
+    mq.declare(queue_B, b_cb)
+    mq.send_msg(queue_A, body_A)
+    mq.send_msg(queue_B, body_B)
+    mq.recv_msg()
 

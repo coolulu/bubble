@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 
-from Public import init_mq
+from bubble.config import BSessionCfg
+from bubble.common.mq.RabbitMQClient import RabbitMQClient
 from Distributer import Distributer
 from datetime import datetime
 
@@ -11,7 +12,11 @@ class Recver:
         self._mq_recv_queue = mq_recv_queue
 
     def recving(self):
-        mq = init_mq()
+        mq = RabbitMQClient.init_mq(BSessionCfg.mq_user_name,
+                                    BSessionCfg.mq_password,
+                                    BSessionCfg.mq_host,
+                                    BSessionCfg.mq_port,
+                                    BSessionCfg.mq_virtual_host)
         mq.declare(self._mq_recv_queue, self.recv_cb)
         mq.recv_msg()
 

@@ -6,13 +6,12 @@ import signal
 
 from bubble.config import BSessionCfg
 
-from bubble.common.log.log import log
+from bubble.common.log.log import log, logger
 from QueuePool import QueuePool
 from Hearter import Hearter
 from Sender import Sender
 from Recver import Recver
 from Worker import Worker
-from Public import init_log
 
 
 
@@ -29,7 +28,8 @@ def main():
     signal.signal(signal.SIGINT, signal_close)
     signal.signal(signal.SIGTERM, signal_close)
 
-    init_log()
+    log = logger(BSessionCfg.log_level, BSessionCfg.log_module,
+                 BSessionCfg.log_path, BSessionCfg.log_maxsize)
     queue_pool = QueuePool(BSessionCfg.proc_work_num)
 
     procList = []

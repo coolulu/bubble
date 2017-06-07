@@ -24,6 +24,12 @@ class RabbitMQClient:
     def close(self):
         self._connection.close()
 
+    @staticmethod
+    def init_mq(user_name, password, host, port, virtual_host):
+        mq = RabbitMQClient(user_name, password, host, port, virtual_host)
+        mq.connect()
+        return mq
+
     '''
     1.由消费者来声明队列,如果队列没声明,生产者消息会丢失
     2.consumer_callback(channel, method, properties, body)

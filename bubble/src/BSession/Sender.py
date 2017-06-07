@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 
-from Public import init_mq
+from bubble.config import BSessionCfg
+from bubble.common.mq.RabbitMQClient import RabbitMQClient
 from datetime import datetime
 
 class Sender:
@@ -10,7 +11,11 @@ class Sender:
         self._loop_back_queue = loop_back_queue
 
     def sending(self):
-        mq = init_mq()
+        mq = RabbitMQClient.init_mq(BSessionCfg.mq_user_name,
+                                    BSessionCfg.mq_password,
+                                    BSessionCfg.mq_host,
+                                    BSessionCfg.mq_port,
+                                    BSessionCfg.mq_virtual_host)
         while True:
             msg = self._queue_pool.get_send_task()
             queue_name = msg

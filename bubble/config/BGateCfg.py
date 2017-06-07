@@ -51,6 +51,6 @@ proc_backlog = 128
 #工作进程数量
 proc_work_num = 1
 
-
-
+#修改进程打开最大文件描述符数量
+#http://blog.csdn.net/kobejayandy/article/details/47128349
 

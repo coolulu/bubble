@@ -86,12 +86,12 @@ def main():
     server.start()
     for i in range(1):
         Process(target=serve_forever, args=tuple()).start()
-    mq = RabbitMQClient.init_mq(BGateCfg.mq_user_name,
-                                BGateCfg.mq_password,
-                                BGateCfg.mq_host,
-                                BGateCfg.mq_port,
-                                BGateCfg.mq_virtual_host)
-    mq.declare(BGateCfg.mq_recv_queue, main_recv_msg_cb)
+    mq = RabbitMQClient.init_mq(BGateCfg.MQ.user_name,
+                                BGateCfg.MQ.password,
+                                BGateCfg.MQ.host,
+                                BGateCfg.MQ.port,
+                                BGateCfg.MQ.virtual_host)
+    mq.declare(BGateCfg.MQ.recv_queue, main_recv_msg_cb)
     mq.recv_msg()
 
 if __name__ in '__main__':

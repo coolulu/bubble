@@ -3,7 +3,7 @@
 # 基本配置
 class Base:
     # 程序名
-    name = 'BSession'
+    name = 'BClient'
 
 # LOG
 class Log:

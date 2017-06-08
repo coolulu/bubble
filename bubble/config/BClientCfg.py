@@ -2,7 +2,7 @@
 
 # LOG
 # 模块名
-log_module = 'BClient'
+log_module = 'BClient' 
 
 # 日志所在路径
 log_path = './log'

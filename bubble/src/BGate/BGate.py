@@ -66,7 +66,7 @@ def reading(reader, clientSet, sem):
                         print e, s
                         closeSocket(s)
 
-def serve_forever():
+def serve_forever(index):
     with gipc.pipe() as (r, w):
         p = gipc.start_process(target=writing, args=(w,))
         wg = gevent.spawn(reading, r, clientSet, sem)
@@ -82,10 +82,12 @@ def main_recv_msg_cb(ch, method, properties, body):
 server = None
 
 def main():
-    server = StreamServer(('127.0.0.1', 5000), handle, backlog=128)
+    server = StreamServer((BGateCfg.Proc.ip, BGateCfg.Proc.port),
+                          handle,
+                          backlog=BGateCfg.Proc.backlog)
     server.start()
-    for i in range(1):
-        Process(target=serve_forever, args=tuple()).start()
+    for index in range(BGateCfg.Proc.work_num):
+        Process(target=serve_forever, args=tuple(index,)).start()
     mq = RabbitMQClient.init_mq(BGateCfg.MQ.user_name,
                                 BGateCfg.MQ.password,
                                 BGateCfg.MQ.host,

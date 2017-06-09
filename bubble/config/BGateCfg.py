@@ -3,7 +3,7 @@
 # 基本配置
 class Base:
     # 程序名
-    name = 'BRoute'
+    name = 'BGate'
 
     #程序id
     id = 0

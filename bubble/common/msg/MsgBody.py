@@ -9,8 +9,8 @@ class MsgBody:
         return json.dumps(obj)
 
     @staticmethod
-    def to_object(stream):
-        return json.loads(stream)
+    def to_object(body):
+        return json.loads(body)
 
 def test():
     m = {1: 1, 2: 2, 3: 3}

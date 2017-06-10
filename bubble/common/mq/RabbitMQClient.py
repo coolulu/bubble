@@ -30,18 +30,17 @@ class RabbitMQClient:
         mq.connect()
         return mq
 
-    '''
-    1.由消费者来声明队列,如果队列没声明,生产者消息会丢失
-    2.consumer_callback(channel, method, properties, body)
-    '''
+
     def declare(self, queue_name, consumer_callback):
+        """
+        1.由消费者来声明队列,如果队列没声明,生产者消息会丢失
+        2.consumer_callback(channel, method, properties, body)
+        """
         self._channel.queue_declare(queue=queue_name)
         self._channel.basic_consume(consumer_callback, queue=queue_name, no_ack=True)
 
-    '''
-    recv blocking
-    '''
     def recv_msg(self):
+        """recv blocking"""
         self._channel.start_consuming()
 
     def send_msg(self, queue_name, body):

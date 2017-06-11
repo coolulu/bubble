@@ -14,12 +14,12 @@ class MsgXOR:
 
     @staticmethod
     def xor_left(key, stream):
-        """从key的左到右异或"""
+        """从key的左到右异或, 用在client发送给server"""
         return MsgXOR._xor(key, stream)
 
     @staticmethod
     def xor_right(key, stream):
-        """从key的右到左异或"""
+        """从key的右到左异或, 用在server发送给client"""
         return MsgXOR._xor(key[::-1], stream)
 
 def test():
